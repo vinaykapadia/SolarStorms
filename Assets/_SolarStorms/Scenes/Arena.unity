@@ -314,8 +314,9 @@ GameObject:
   m_Component:
   - component: {fileID: 990897691}
   - component: {fileID: 990897690}
+  - component: {fileID: 990897692}
   m_Layer: 0
-  m_Name: Flight Timing Readout
+  m_Name: Readouts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,6 +354,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &990897692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990897689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6eff778e328904aa7fd85a4a00d40e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SolarStorms.DebugTools::SolarStorms.DebugTools.ReactorReadout
+  reactor: {fileID: 1933239616}
+  ship: {fileID: 1208814245}
+  beam: {fileID: 1208814244}
+  balancedPreset: {fileID: 11400000, guid: a0c51442e8f4dbc4f8f1724cf9ee9f11, type: 2}
+  combatPreset: {fileID: 11400000, guid: 26baa481370ed564fbe3ac1d57b3b01f, type: 2}
+  burnPreset: {fileID: 11400000, guid: 99177c41d37743049a0b93ae24160fd6, type: 2}
+  balancedKey: 283
+  combatKey: 284
+  burnKey: 285
 --- !u!1 &1092262467
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,6 +527,52 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &1174964819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1174964821}
+  - component: {fileID: 1174964820}
+  m_Layer: 0
+  m_Name: ReactorAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1174964820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174964819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1aa5f6d7d8a34946ab745b2d7011055, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SolarStorms.Presentation::SolarStorms.Presentation.ReactorAudio
+  reactor: {fileID: 1933239616}
+  feedback: {fileID: 11400000, guid: ba416b9a9048ca04e96cbab84a9de026, type: 2}
+--- !u!4 &1174964821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174964819}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1208814241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -595,6 +663,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd45187f57e921346b3fc3baf6f9509d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SolarStorms.Gameplay::SolarStorms.Gameplay.PlayerShip
+--- !u!114 &1933239616 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -8231694010601922680, guid: 1ab0dd258c3792744aea35d2bedf5abd, type: 3}
+  m_PrefabInstance: {fileID: 1208814241}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23f49dbc4bd25045a804068d356af04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SolarStorms.Gameplay::SolarStorms.Gameplay.ShipReactor
+--- !u!1 &2037540883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2037540885}
+  - component: {fileID: 2037540884}
+  m_Layer: 0
+  m_Name: HUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2037540884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037540883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a70db18129da644ac8f36b4617f646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SolarStorms.Presentation::SolarStorms.Presentation.SidePanelView
+  layout: {fileID: 11400000, guid: 0a0698a5aab36bb4c83bade984ea701d, type: 2}
+  reactor: {fileID: 1933239616}
+  feedback: {fileID: 11400000, guid: ba416b9a9048ca04e96cbab84a9de026, type: 2}
+--- !u!4 &2037540885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037540883}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -604,3 +730,5 @@ SceneRoots:
   - {fileID: 448040717}
   - {fileID: 990897691}
   - {fileID: 732463979}
+  - {fileID: 2037540885}
+  - {fileID: 1174964821}

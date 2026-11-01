@@ -12,6 +12,7 @@ namespace SolarStorms.Gameplay
     {
         [SerializeField] ShipClassData shipClass;
         [SerializeField] PlayerInputReader input;
+        [SerializeField] ShipReactor reactor;
 
         Rigidbody2D body;
 
@@ -20,7 +21,7 @@ namespace SolarStorms.Gameplay
         void Awake()
         {
             body = GetComponent<Rigidbody2D>();
-            Flight = new FlightModel(shipClass, body.rotation);
+            Flight = new FlightModel(shipClass, reactor.Model, body.rotation);
         }
 
         void FixedUpdate()

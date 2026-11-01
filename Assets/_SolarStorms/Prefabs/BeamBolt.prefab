@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7164137562868652743}
   - component: {fileID: 413088685501748839}
   - component: {fileID: 754347835062767472}
+  - component: {fileID: 9198570807339127646}
   m_Layer: 0
   m_Name: BeamBolt
   m_TagString: Untagged
@@ -105,3 +106,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b655a7666a1546c4d8b8448885d74f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SolarStorms.Gameplay::SolarStorms.Gameplay.BeamBolt
+--- !u!114 &9198570807339127646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616486988652633501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e24d67b17b610614ab7bb737bbfa0fbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SolarStorms.Presentation::SolarStorms.Presentation.BoltTint
+  bolt: {fileID: 754347835062767472}
+  sprite: {fileID: 413088685501748839}
+  feedback: {fileID: 11400000, guid: ba416b9a9048ca04e96cbab84a9de026, type: 2}

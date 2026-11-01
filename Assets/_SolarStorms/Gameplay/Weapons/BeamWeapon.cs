@@ -5,13 +5,15 @@ using UnityEngine.Pool;
 namespace SolarStorms.Gameplay
 {
     /// <summary>
-    /// The ship's beam, single burst only. Asks the fire timer each physics step and launches pooled bolts.
+    /// The ship's beam, single burst only. Asks the fire timer each physics step and launches pooled bolts,
+    /// stamping each with the damage and intensity its Weapons power gave it.
     /// </summary>
     public sealed class BeamWeapon : MonoBehaviour
     {
         [SerializeField] BeamWeaponData weapon;
         [SerializeField] PlayerShip ship;
         [SerializeField] PlayerInputReader input;
+        [SerializeField] ShipReactor reactor;
         [SerializeField] Transform muzzle;
         [SerializeField] BeamBolt boltPrefab;
 
@@ -19,6 +21,9 @@ namespace SolarStorms.Gameplay
         ObjectPool<BeamBolt> boltPool;
 
         public BeamWeaponData Weapon => weapon;
+
+        /// <summary>Seconds between shots at the current Weapons power. The debug readout uses this.</summary>
+        public float CurrentInterval => fireTimer.CurrentInterval;
 
         /// <summary>Shots fired since the scene started. The debug readout watches this.</summary>
         public int ShotCount { get; private set; }
@@ -30,7 +35,7 @@ namespace SolarStorms.Gameplay
 
         void Awake()
         {
-            fireTimer = new BeamFireTimer(weapon);
+            fireTimer = new BeamFireTimer(weapon, reactor.Model);
             boltPool = new ObjectPool<BeamBolt>(
                 createFunc: CreateBolt,
                 actionOnGet: bolt => bolt.gameObject.SetActive(true),
@@ -51,8 +56,13 @@ namespace SolarStorms.Gameplay
                 velocity += ship.Flight.Velocity;
             }
 
+            ReactorModel model = reactor.Model;
+            float weaponsMultiplier = model.Multiplier(ReactorSystem.Weapons);
+            float damage = weapon.damageAtStandard * weaponsMultiplier;
+            float intensity = Mathf.InverseLerp(model.Data.floorMultiplier, model.Data.capMultiplier, weaponsMultiplier);
+
             BeamBolt bolt = boltPool.Get();
-            bolt.Launch(muzzle.position, ship.Flight.HeadingDegrees, velocity, weapon.boltLifetime);
+            bolt.Launch(muzzle.position, ship.Flight.HeadingDegrees, velocity, weapon.boltLifetime, damage, intensity);
 
             ShotCount++;
             LastShotTime = Time.fixedTime;

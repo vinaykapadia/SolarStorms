@@ -33,5 +33,37 @@ namespace SolarStorms.Simulation
 
         /// <summary>Distance from the centre of the game view to its corner, in world units.</summary>
         public float CornerDistance => Mathf.Sqrt(ViewHalfWidth * ViewHalfWidth + viewHalfHeight * viewHalfHeight);
+
+        /// <summary>The game view as a normalised screen rectangle (0–1), for a screen of the given width ÷ height.</summary>
+        public Rect GameViewRect(float screenAspect)
+        {
+            Rect layout = LayoutRect(screenAspect);
+            return new Rect(layout.x, layout.y, layout.width * gameViewAspect / layoutAspect, layout.height);
+        }
+
+        /// <summary>The side panel (right of the game view) as a normalised screen rectangle (0–1).</summary>
+        public Rect PanelRect(float screenAspect)
+        {
+            Rect layout = LayoutRect(screenAspect);
+            Rect gameView = GameViewRect(screenAspect);
+            return new Rect(gameView.xMax, layout.y, layout.xMax - gameView.xMax, layout.height);
+        }
+
+        /// <summary>The whole layout, letterboxed to layoutAspect and centred on the screen.</summary>
+        Rect LayoutRect(float screenAspect)
+        {
+            float width = 1f;
+            float height = 1f;
+            if (screenAspect > layoutAspect)
+            {
+                width = layoutAspect / screenAspect;
+            }
+            else
+            {
+                height = screenAspect / layoutAspect;
+            }
+
+            return new Rect((1f - width) * 0.5f, (1f - height) * 0.5f, width, height);
+        }
     }
 }
