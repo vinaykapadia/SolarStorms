@@ -92,7 +92,7 @@ Raise reputation with factions, unlock gated contracts and equipment, grow the r
 
 ## Flight model
 
-**Ship-centred camera.** The player's ship stays near the centre of the screen and the world scrolls around it, matching the original feel. Slight look-ahead in the direction of travel keeps fast flight readable. [Open: whether to use camera look-ahead, and how far the ship sits from screen centre, is undecided. The options will be prototyped and compared in play before a choice is made.]
+**Ship-centred camera.** The player's ship stays near the centre of the screen and the world scrolls around it, matching the original feel. Slight look-ahead in the direction of travel keeps fast flight readable. Decided in the Phase 0 play test: look-ahead is on by default, and players can turn it off in the settings (Section 10). The camera leads along the ship's velocity, by up to a quarter of the game view's half-height at full speed; that distance and its smoothing are tuning values.
 
 **Immediate turning.** Heading follows input directly, in an arcade style with tight, direct control. There is no inertial drift: the ship starts and stops quickly. Targets, matched to the original's measured feel: from standstill to full speed in 0.5s, from full speed to a stop in 0.5s, and a full 360° turn in 1.5s.
 
@@ -441,7 +441,7 @@ A second, specialised hull (a fast interceptor with little cargo, or a gunship t
 
 **Audio.** Beam, missile, and engine sounds pitched by burst mode and speed so experienced players can fly partly by ear. Music is sparse in open space and gains layers in combat; station music carries the setting's character.
 
-**Accessibility.** Remappable controls (including every routing and tuning input), aim assist strength, an optional Auto-route assist (see Section 5) and an optional Auto-tune assist (see Section 6), screen-shake and flash toggles (including the scan-complete flash and the combat lamp flash), subtitle and UI scale options, and difficulty settings that adjust enemy damage and aggression — not player damage alone.
+**Accessibility.** Remappable controls (including every routing and tuning input), aim assist strength, an optional Auto-route assist (see Section 5) and an optional Auto-tune assist (see Section 6), screen-shake and flash toggles (including the scan-complete flash and the combat lamp flash), a camera look-ahead toggle (see Section 4), subtitle and UI scale options, and difficulty settings that adjust enemy damage and aggression — not player damage alone.
 
 # 11. Controls and platforms
 
@@ -581,7 +581,7 @@ Phases are gates, not dates. A phase starts when the previous phase's success te
 | **Monetisation (if any)** | Premium only is the working assumption; no decision taken | Before any public announcement |
 | **Voice acting** | Text-only (working assumption) vs. partial VO for story jobs | Phase 3 |
 | **Routable systems beyond the MVP four** | Cooling is designed in Section 5; order and tuning to confirm. Damage Control is decided — it is not routable; it stays a passive upgrade and station repair function | Phase 3 — existence of routing itself is decided, not open |
-| **Camera look-ahead** | Prototype and compare in play | Phase 0 |
+| **Camera look-ahead** | Decided: on by default, with a player setting to turn it off; leads along velocity, distance and smoothing are tuning values | Decided |
 | **Auto-route assist default** | Off by default with a first-session prompt vs. on by default | Phase 2 |
 | **Auto-tune assist default** | Off by default with a first-session prompt vs. on by default | Phase 2 |
 | **Shield quadrant equalisation rate** | Slow trickle rate and recharge split across quadrants to tune in the prototype; the quadrant model itself is decided, not open | Phase 0 |
