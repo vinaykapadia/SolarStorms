@@ -1,0 +1,17 @@
+{
+    "name": "SolarStorms.Presentation",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1a4786157b7b74648b97118c9ac4c11a",
+        "GUID:c1346d32f8025534bb9d8e5c3a5cd287"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
