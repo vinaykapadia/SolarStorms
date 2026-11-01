@@ -2,16 +2,17 @@ namespace SolarStorms.Simulation
 {
     /// <summary>
     /// One step of pilot input for the flight model.
-    /// Either a heading to turn toward (controller stick) or a turn rate (keyboard), plus a throttle.
+    /// Either a heading to turn toward (controller stick) or a turn rate (keyboard), plus a throttle and boost.
     /// </summary>
     public readonly struct FlightCommand
     {
-        FlightCommand(bool hasTargetHeading, float targetHeadingDegrees, float turnInput, float throttle)
+        FlightCommand(bool hasTargetHeading, float targetHeadingDegrees, float turnInput, float throttle, bool boost)
         {
             HasTargetHeading = hasTargetHeading;
             TargetHeadingDegrees = targetHeadingDegrees;
             TurnInput = turnInput;
             Throttle = throttle;
+            Boost = boost;
         }
 
         public bool HasTargetHeading { get; }
@@ -25,10 +26,13 @@ namespace SolarStorms.Simulation
         /// <summary>0 to 1, a fraction of top speed.</summary>
         public float Throttle { get; }
 
-        public static FlightCommand TowardHeading(float headingDegrees, float throttle) =>
-            new FlightCommand(true, headingDegrees, 0f, throttle);
+        /// <summary>Boost held. Only takes effect with some throttle and while the reactor is not locked out.</summary>
+        public bool Boost { get; }
 
-        public static FlightCommand Turning(float turnInput, float throttle) =>
-            new FlightCommand(false, 0f, turnInput, throttle);
+        public static FlightCommand TowardHeading(float headingDegrees, float throttle, bool boost = false) =>
+            new FlightCommand(true, headingDegrees, 0f, throttle, boost);
+
+        public static FlightCommand Turning(float turnInput, float throttle, bool boost = false) =>
+            new FlightCommand(false, 0f, turnInput, throttle, boost);
     }
 }

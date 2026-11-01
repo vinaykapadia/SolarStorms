@@ -37,8 +37,9 @@ namespace SolarStorms.Presentation
             Vector2 targetOffset = Vector2.zero;
             if (LookAheadEnabled)
             {
+                // Clamped so boost, which can exceed MaxSpeed, never pushes the camera past its look-ahead distance.
                 float lookAheadDistance = data.lookAheadFraction * data.viewHalfHeight;
-                targetOffset = ship.Flight.Velocity / ship.Flight.MaxSpeed * lookAheadDistance;
+                targetOffset = Vector2.ClampMagnitude(ship.Flight.Velocity / ship.Flight.MaxSpeed, 1f) * lookAheadDistance;
             }
 
             lookAheadOffset = Vector2.SmoothDamp(lookAheadOffset, targetOffset, ref lookAheadVelocity, data.lookAheadSmoothTime);
@@ -53,23 +54,7 @@ namespace SolarStorms.Presentation
         void FitToGameView()
         {
             viewCamera.orthographicSize = data.viewHalfHeight;
-
-            float screenAspect = (float)Screen.width / Screen.height;
-            float layoutWidth = 1f;
-            float layoutHeight = 1f;
-            if (screenAspect > data.layoutAspect)
-            {
-                layoutWidth = data.layoutAspect / screenAspect;
-            }
-            else
-            {
-                layoutHeight = screenAspect / data.layoutAspect;
-            }
-
-            float layoutLeft = (1f - layoutWidth) * 0.5f;
-            float layoutBottom = (1f - layoutHeight) * 0.5f;
-            float gameViewWidth = layoutWidth * data.gameViewAspect / data.layoutAspect;
-            viewCamera.rect = new Rect(layoutLeft, layoutBottom, gameViewWidth, layoutHeight);
+            viewCamera.rect = data.GameViewRect((float)Screen.width / Screen.height);
         }
     }
 }
