@@ -5,7 +5,7 @@ A top-down, multidirectional space shooter. Unity 6, C#. Original work, inspired
 ## Source documents
 
 * `docs/solar-winds-successor-design-doc.md` is the design source of truth (v0.13). If code and doc disagree, stop and ask.
-* `docs/phase-0-plan.md` is the build plan. Follow its build order.
+* `docs/solar-storms-phase-0-plan.md` is the build plan. Follow its build order.
 
 ## How we work
 
@@ -19,16 +19,16 @@ A top-down, multidirectional space shooter. Unity 6, C#. Original work, inspired
 * Reactor, shield, and tuning models are plain C# classes in `SolarStorms.Simulation`. They are not MonoBehaviours.
 * MonoBehaviours live in `SolarStorms.Gameplay`.
 * HUD, audio, and VFX live in `SolarStorms.Presentation` and only listen to events.
-* Assembly references: Simulation references nothing. Gameplay references Simulation and Unity.InputSystem. Presentation references Simulation and Gameplay. DebugTools references all three. Tests.EditMode references Simulation. Never add a reference that creates a cycle.
+* Assembly references: Simulation references UnityEngine. Gameplay references Simulation and Unity.InputSystem. Presentation references Simulation and Gameplay. DebugTools references all three. Tests.EditMode references Simulation. Never add a reference that creates a cycle.
 * No system keeps its own copy of a power level. Read it from the reactor model.
-* Tunable values live in ScriptableObjects under `Assets/\_SolarStorms/Tuning Data/`. Do not hard-code a tunable number in code unless I have said it is temporary.
+* Tunable values live in ScriptableObjects under `Assets/_SolarStorms/Tuning Data/`. Do not hard-code a tunable number in code unless I have said it is temporary.
 * Events are broadcast for: power changed, scan complete, hit result, combat state changed.
 
 ## Layout
 
 ```
 Assets/
-  \_SolarStorms/
+  _SolarStorms/
     Simulation/      (asmdef: SolarStorms.Simulation)
     Gameplay/        (asmdef: SolarStorms.Gameplay)
     Presentation/    (asmdef: SolarStorms.Presentation)
