@@ -1,14 +1,14 @@
-# Solar Storms: Phase 0 Prototype Plan
+# Solar Storms — Phase 0 Prototype Plan
 
-*Companion to `solar-winds-successor-design-doc.md` (v0.13). Phase 0 has one job: prove that flight, routing, tuning, and one fight feel right together. Nothing else is scheduled until this prototype has been played.*
+*Companion to the design doc (claude/solar-winds-successor-design-doc.md, v0.13). Phase 0 has one job: prove that flight, routing, tuning, and one fight feel right together. Nothing else is scheduled until this prototype has been played.*
 
-## Scope
+## Scope in one paragraph
 
 One ship in an empty arena, with Unity 6 and C#. Placeholder shapes for art. No station, no contracts, no save system. Everything the design calls "locked" is in: reactor routing, five-band frequencies with scanning and retuning, four-quadrant shields, and combat state. One enemy group (a Dart) patrols, notices, chases, and returns.
 
 ## Build order
 
-Riskiest and most depended-on first. Do not start the next step until the "done when" test passes.
+Riskiest and most depended-on first. Each step has a "done when" test; do not start the next step until it passes.
 
 | # | Step | What is built | Done when |
 | --- | --- | --- | --- |
@@ -19,7 +19,7 @@ Riskiest and most depended-on first. Do not start the next step until the "done 
 | 5 | **Enemy group and combat state** | One Dart group with home, patrol radius, chase radius, wander, notice, chase, return; the first Dart with fixed bands and later Darts rolled; combat state, combat lamp, travel-mode and preset locks | A fast pilot can shake a pursuer, and the player can say why something is locked |
 | 6 | **Playtest gates** | See below | See below |
 
-## Structure
+## Structure, in plain English
 
 **Data assets** (no code changes to tune): ship class, weapon, band damage and recalibration values, combat state values (engagement radius, notice ranges, calm period), and enemy groups (ships and offsets, home, patrol radius, chase radius, hunter flag).
 
@@ -35,15 +35,19 @@ Riskiest and most depended-on first. Do not start the next step until the "done 
 
 **Input:** one action map for flight, with the tuning layer switched on while the left bumper is held.
 
-## Project layout
+## Project layout (decided)
+
+Feature folders under `Assets/_SolarStorms/`, with four layer assembly definitions plus tests:
 
 | Assembly | Holds | References |
 | --- | --- | --- |
-| **SolarStorms.Simulation** | Reactor, shield, and tuning models; combat state; shared events; ScriptableObject classes. Plain C# classes, no MonoBehaviours. References UnityEngine. | None |
-| **SolarStorms.Gameplay** | MonoBehaviours: ship, flight, weapons, Dart group AI, input actions | Simulation, Unity.InputSystem |
-| **SolarStorms.Presentation** | HUD, side panel, audio, VFX (listen to events only) | Simulation, Gameplay |
-| **SolarStorms.DebugTools** | Live-tuning overlay, playtest logging | Simulation, Gameplay, Presentation |
-| **SolarStorms.Tests.EditMode** | Unit tests of the rules | Simulation |
+| **SolarStorms.Simulation** | Reactor, shield, and tuning models; combat state; shared events; ScriptableObject classes. Plain C# classes, no MonoBehaviours. References UnityEngine (decided — not engine-free), so Unity types like Vector2 are allowed. | — |
+| **SolarStorms.Gameplay** | MonoBehaviours: ship, flight, weapons, Dart group AI, input actions | Simulation |
+| **SolarStorms.Presentation** | HUD, side panel, audio, VFX — listen to events only | Simulation (and Gameplay if needed) |
+| **SolarStorms.DebugTools** | Live-tuning overlay, playtest logging | All of the above |
+| **SolarStorms.Tests.EditMode** | Unit tests of the rules: closer-is-stronger, quick-routing math, quadrant assignment and equalisation | Simulation |
+
+Nothing references Presentation or DebugTools, so the "HUD, audio, and logs just listen" rule is enforced by the compiler. Tuning `.asset` instances live together in `_SolarStorms/Tuning Data/`; their classes live with their feature. URP settings stay in the template's `Assets/Settings/`. Folders are created only when their first file arrives, because Git does not track empty folders.
 
 ## Debug and logging
 
@@ -56,6 +60,8 @@ Riskiest and most depended-on first. Do not start the next step until the "done 
 Placeholder shapes for ships, no station or contract board, no music, and audio limited to the routing ticks, the five band pitches, and basic hit sounds. If a step threatens to take much longer than planned, cut polish and keep the rule.
 
 ## Playtest gates (step 6)
+
+From the design doc:
 
 - A new player hits a moving Dart within one minute.
 - In a second fight, the player re-routes power unprompted and can say what they gave up.
@@ -73,3 +79,7 @@ Added during planning:
 ## Values to tune first
 
 Equalisation rate, the 0.3s tuning buffer, recalibration times, the closer-is-stronger damage fractions (100/50/25), the engagement radius, notice ranges, the patrol-to-chase ratio, the five-second calm period, scan times on standard and boosted Sensors, and Mid-weapon weighting in the three-band pool.
+
+## Next step before any code
+
+Agree the class structure with the designer in plain English (which classes exist, what each owns, and what events they send), then write scripts one step at a time in the order above.
