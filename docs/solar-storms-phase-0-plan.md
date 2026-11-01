@@ -94,6 +94,7 @@ Approved with the class structure:
 - **Combat state** is a stub until Step 5, so presets are always available.
 - **Engine glow** follows Engines power only, not boost.
 - **Build Settings** still lists the deleted `SampleScene`, disabled.
+- **Unsaved new fields.** `ShipClass_Kestrel` does not yet store `boostSpeedMultiplier`, `boostHeatPerSecond` or `speedCap`, and `BeamWeapon_Standard` does not store `heatPerShot` or `damageAtStandard`. Both run on the code defaults, which are the intended values; saving each asset once in the editor writes them out, so a later change to a default cannot silently change play.
 - **Carried from Step 1:** the settings screen and bolt collisions.
 
 ## Structure, in plain English
@@ -169,7 +170,3 @@ Added during planning:
 ## Values to tune first
 
 Equalisation rate, the 0.3s tuning buffer, recalibration times, the closer-is-stronger damage fractions (100/50/25), the engagement radius, notice ranges, the patrol-to-chase ratio, the five-second calm period, scan times on standard and boosted Sensors, and Mid-weapon weighting in the three-band pool.
-
-## Next step before any code
-
-Agree the class structure with the designer in plain English (which classes exist, what each owns, and what events they send), then write scripts one step at a time in the order above.
