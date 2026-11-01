@@ -4,7 +4,7 @@ A top-down, multidirectional space shooter. Unity 6, C#. Original work, inspired
 
 ## Source documents
 
-* `docs/solar-winds-successor-design-doc.md` is the design source of truth (v0.13). If code and doc disagree, stop and ask.
+* `docs/solar-winds-successor-design-doc.md` is the design source of truth. If code and doc disagree, stop and ask.
 * `docs/solar-storms-phase-0-plan.md` is the build plan. Follow its build order.
 
 ## How we work
@@ -13,6 +13,16 @@ A top-down, multidirectional space shooter. Unity 6, C#. Original work, inspired
 * For each step, first propose the class structure in plain English: which classes exist, what each owns, which events it sends, and which assembly each file goes in. Wait for my approval before writing scripts.
 * Flag design conflicts or open questions instead of deciding them. Options are welcome; decisions are mine.
 * Keep scope tight. If something looks like a rabbit hole, say so and propose the smaller version.
+* At the end of a step, update that step's Status and results in the phase plan. Any design change goes into the design doc (including its decisions table) in the same PR as the code.
+* Before reporting a step done, run the EditMode tests and check the step's "done when" numbers in play.
+* End each step with a summary in this format: results vs "done when", decisions made, what exists now, open items for later steps.
+
+## Git
+
+* One branch per step, named `phase-0-step-N`, cut from `develop`.
+* Open a PR into `develop`.
+* Never commit to `main`.
+* Never force-push a shared branch unless I ask.
 
 ## Architecture
 
