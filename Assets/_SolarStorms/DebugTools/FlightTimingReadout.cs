@@ -225,9 +225,12 @@ namespace SolarStorms.DebugTools
                 current.Use();
             }
 
-            style ??= new GUIStyle(GUI.skin.label) { fontSize = 16, richText = true };
+            // Scale the text to the window, and never wrap: the box grows to fit its lines instead.
+            style ??= new GUIStyle(GUI.skin.label) { richText = true, wordWrap = false };
+            style.fontSize = Mathf.Clamp(Screen.height / 45, 11, 24);
 
-            GUILayout.BeginArea(new Rect(10f, 10f, 520f, 300f), GUI.skin.box);
+            GUILayout.BeginArea(new Rect(10f, 10f, Screen.width - 20f, Screen.height - 20f));
+            GUILayout.BeginVertical(GUI.skin.box, GUILayout.ExpandWidth(false));
             GUILayout.Label("<b>Step 1 flight timing</b>", style);
             GUILayout.Label(fullSpeed.Describe(), style);
             GUILayout.Label(stop.Describe(), style);
@@ -242,6 +245,7 @@ namespace SolarStorms.DebugTools
                 $"Look-ahead {(cameraRig.LookAheadEnabled ? "ON" : "OFF")} ({lookAheadToggleKey})   " +
                 $"Device: {input.LastDeviceName}",
                 style);
+            GUILayout.EndVertical();
             GUILayout.EndArea();
         }
 

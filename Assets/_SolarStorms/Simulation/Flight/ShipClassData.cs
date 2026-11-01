@@ -10,8 +10,8 @@ namespace SolarStorms.Simulation
     public sealed class ShipClassData : ScriptableObject
     {
         [Header("Engines at standard power (temporary until the Step 2 reactor)")]
-        [Tooltip("Top speed in world units per second. Starting value: crosses the game view's width in 1.5 s.")]
-        [Min(0.01f)] public float maxSpeed = 13.33f;
+        [Tooltip("Top speed in world units per second. Set to 8 in play so bolts (16.67) clearly outrun the ship.")]
+        [Min(0.01f)] public float maxSpeed = 8f;
 
         [Tooltip("Seconds from standstill to full speed. Target: 0.5.")]
         [Min(0.01f)] public float timeToFullSpeed = 0.5f;

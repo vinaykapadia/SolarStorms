@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c086d977b01aa47a60b0cd005f5471, type: 3}
   m_Name: ShipClass_Kestrel
   m_EditorClassIdentifier: SolarStorms.Simulation::SolarStorms.Simulation.ShipClassData
-  maxSpeed: 13.33
+  maxSpeed: 8
   timeToFullSpeed: 0.5
   timeToStop: 0.5
   fullTurnTime: 1.5
