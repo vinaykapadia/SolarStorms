@@ -16,30 +16,9 @@ A top-down, multidirectional space shooter. Unity 6, C#. Original work, inspired
 
 ## Architecture
 
-* Reactor, shield, and tuning models are plain C# classes in `SolarStorms.Simulation`. They are not MonoBehaviours.
-* MonoBehaviours live in `SolarStorms.Gameplay`.
-* HUD, audio, and VFX live in `SolarStorms.Presentation` and only listen to events.
-* Assembly references: Simulation references UnityEngine. Gameplay references Simulation and Unity.InputSystem. Presentation references Simulation and Gameplay. DebugTools references all three. Tests.EditMode references Simulation. Never add a reference that creates a cycle.
+* The folder layout, the assemblies, what each holds, and their references are defined in the phase plan's "Project layout" section, and the broadcast events in its "Structure" section. Follow them, and change them there, not here.
 * No system keeps its own copy of a power level. Read it from the reactor model.
-* Tunable values live in ScriptableObjects under `Assets/_SolarStorms/Tuning Data/`. Do not hard-code a tunable number in code unless I have said it is temporary.
-* Events are broadcast for: power changed, scan complete, hit result, combat state changed.
-
-## Layout
-
-```
-Assets/
-  _SolarStorms/
-    Simulation/      (asmdef: SolarStorms.Simulation)
-    Gameplay/        (asmdef: SolarStorms.Gameplay)
-    Presentation/    (asmdef: SolarStorms.Presentation)
-    DebugTools/      (asmdef: SolarStorms.DebugTools)
-    Tuning Data/
-    Prefabs/  Scenes/  Art/  Audio/
-  Tests/EditMode/    (asmdef: SolarStorms.Tests.EditMode)
-  Settings/          (URP, do not change)
-```
-
-Create a folder only when its first file goes in. Git does not track empty folders.
+* Do not hard-code a tunable number in code unless I have said it is temporary. Tunable values go in ScriptableObject assets.
 
 ## Conventions
 

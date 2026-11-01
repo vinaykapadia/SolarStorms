@@ -59,17 +59,30 @@ Riskiest and most depended-on first. Each step has a "done when" test; do not st
 
 ## Project layout (decided)
 
-Feature folders under `Assets/_SolarStorms/`, with four layer assembly definitions plus tests:
+This section is the single source for the project layout and assembly references. Feature folders sit under `Assets/_SolarStorms/`, with one assembly definition per layer, and EditMode tests sit in `Assets/Tests/EditMode/`:
+
+```
+Assets/
+  _SolarStorms/
+    Simulation/      (asmdef: SolarStorms.Simulation)
+    Gameplay/        (asmdef: SolarStorms.Gameplay)
+    Presentation/    (asmdef: SolarStorms.Presentation)
+    DebugTools/      (asmdef: SolarStorms.DebugTools)
+    Tuning Data/     (ScriptableObject .asset instances)
+    Prefabs/  Scenes/  Art/  Audio/
+  Tests/EditMode/    (asmdef: SolarStorms.Tests.EditMode)
+  Settings/          (URP, from the template; do not change)
+```
 
 | Assembly | Holds | References |
 | --- | --- | --- |
-| **SolarStorms.Simulation** | Reactor, shield, and tuning models; combat state; shared events; ScriptableObject classes. Plain C# classes, no MonoBehaviours. References UnityEngine (decided — not engine-free), so Unity types like Vector2 are allowed. | — |
-| **SolarStorms.Gameplay** | MonoBehaviours: ship, flight, weapons, Dart group AI, input actions | Simulation |
-| **SolarStorms.Presentation** | HUD, side panel, audio, VFX — listen to events only | Simulation (and Gameplay if needed) |
-| **SolarStorms.DebugTools** | Live-tuning overlay, playtest logging | All of the above |
-| **SolarStorms.Tests.EditMode** | Unit tests of the rules: closer-is-stronger, quick-routing math, quadrant assignment and equalisation | Simulation |
+| **SolarStorms.Simulation** | Reactor, shield, and tuning models; combat state; shared events; every ScriptableObject class, including data only one layer reads (such as camera and starfield values). Plain C# classes, no MonoBehaviours. References UnityEngine (decided — not engine-free), so Unity types like Vector2 are allowed. | UnityEngine only |
+| **SolarStorms.Gameplay** | Gameplay MonoBehaviours: ship, flight, weapons, Dart group AI, input actions | Simulation, Unity.InputSystem |
+| **SolarStorms.Presentation** | Camera, HUD, side panel, audio, VFX. HUD, audio, and VFX listen to events only | Simulation, Gameplay |
+| **SolarStorms.DebugTools** | Live-tuning overlay, playtest logging, timing readouts | Simulation, Gameplay, Presentation |
+| **SolarStorms.Tests.EditMode** | Unit tests of the Simulation rules: flight timings, fire rate, closer-is-stronger, quick-routing math, quadrant assignment and equalisation | Simulation (plus the Unity Test Framework) |
 
-Nothing references Presentation or DebugTools, so the "HUD, audio, and logs just listen" rule is enforced by the compiler. Tuning `.asset` instances live together in `_SolarStorms/Tuning Data/`; their classes live with their feature. URP settings stay in the template's `Assets/Settings/`. Folders are created only when their first file arrives, because Git does not track empty folders.
+Nothing references Presentation or DebugTools, so the "HUD, audio, and logs just listen" rule is enforced by the compiler. Never add a reference this table does not list, or one that creates a cycle. All ScriptableObject classes live in Simulation, so every layer can read every data asset; their `.asset` instances live together in `_SolarStorms/Tuning Data/`. URP settings stay in the template's `Assets/Settings/`. Folders are created only when their first file arrives, because Git does not track empty folders.
 
 ## Debug and logging
 
